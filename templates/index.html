@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Eligibility Checker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <script defer src="{{ url_for('static', filename='styles.js') }}"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="loan-card">
+            <h1 class="title">Loan Eligibility Checker</h1>
+            <p class="subtitle">Find out if you qualify for a loan in seconds! 🚀</p>
+
+            <div class="progress-bar">
+                <div class="step active">1</div>
+                <div class="step">2</div>
+                <div class="step">3</div>
+            </div>
+
+            <form id="loanForm" action="/predict" method="post">
+                <div class="form-step active">
+                    <h2>Personal Details</h2>
+                    <div class="input-group">
+                        <i class="fa-solid fa-user"></i>
+                        <select name="gender" required>
+                            <option value="" disabled selected>Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <i class="fa-solid fa-heart"></i>
+                        <select name="married" required>
+                            <option value="" disabled selected>Marital Status</option>
+                            <option value="Yes">Married</option>
+                            <option value="No">Single</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <select name="education" required>
+                            <option value="" disabled selected>Education Level</option>
+                            <option value="Graduate">Graduate</option>
+                            <option value="Not Graduate">Not Graduate</option>
+                        </select>
+                    </div>
+
+                    <button type="button" class="next-btn">Next</button>
+                </div>
+
+                <div class="form-step">
+                    <h2>Financial Details</h2>
+                    <div class="input-group">
+                        <i class="fa-solid fa-briefcase"></i>
+                        <select name="self_employed" required>
+                            <option value="" disabled selected>Employment Status</option>
+                            <option value="Yes">Self Employed</option>
+                            <option value="No">Not Self Employed</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <i class="fa-solid fa-dollar-sign"></i>
+                        <input type="number" name="applicant_income" placeholder="Applicant Income" required>
+                    </div>
+
+                    <div class="input-group">
+                        <i class="fa-solid fa-users"></i>
+                        <input type="number" name="coapplicant_income" placeholder="Coapplicant Income" required>
+                    </div>
+
+                    <button type="button" class="prev-btn">Previous</button>
+                    <button type="button" class="next-btn">Next</button>
+                </div>
+
+                <div class="form-step">
+                    <h2>Loan Details</h2>
+                    <div class="input-group">
+                        <i class="fa-solid fa-coins"></i>
+                        <input type="number" name="loan_amount" placeholder="Loan Amount" required>
+                    </div>
+
+                    <div class="input-group">
+                        <i class="fa-solid fa-calendar-alt"></i>
+                        <input type="number" name="loan_term" placeholder="Loan Term (Months)" required>
+                    </div>
+
+                    <div class="input-group">
+                        <i class="fa-solid fa-star"></i>
+                        <input type="number" name="credit_history" placeholder="Credit History (0 or 1)" required>
+                    </div>
+
+                    <div class="input-group">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <input type="number" name="credit_score" placeholder="Credit Score" required>
+                    </div>
+
+                    <button type="button" class="prev-btn">Previous</button>
+                    <button type="submit" class="check-btn">🚀 Check Eligibility</button>
+                </div>
+            </form>
+
+            {% if prediction %}
+                <div class="result">{{ prediction }}</div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
